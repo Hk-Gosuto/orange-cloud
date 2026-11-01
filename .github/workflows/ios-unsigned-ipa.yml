@@ -13,8 +13,6 @@ permissions:
 env:
   PROJECT: apps/ios/Orange Cloud/Orange Cloud.xcodeproj
   SCHEME: Orange Cloud
-  ARCHIVE_PATH: ${{ runner.temp }}/OrangeCloud.xcarchive
-  EXPORT_PATH: ${{ runner.temp }}/export
 
 jobs:
   build:
@@ -36,7 +34,7 @@ jobs:
           -scheme "$SCHEME"
           -configuration Release
           -sdk iphoneos
-          -archivePath "$ARCHIVE_PATH"
+          -archivePath "$RUNNER_TEMP/OrangeCloud.xcarchive"
           -destination 'generic/platform=iOS'
           -derivedDataPath "$RUNNER_TEMP/DerivedData"
           CODE_SIGNING_ALLOWED=NO
@@ -49,11 +47,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          app_path="$ARCHIVE_PATH/Products/Applications/Orange Cloud.app"
+          app_path="$RUNNER_TEMP/OrangeCloud.xcarchive/Products/Applications/Orange Cloud.app"
           test -d "$app_path"
-          mkdir -p "$EXPORT_PATH/Payload"
-          cp -R "$app_path" "$EXPORT_PATH/Payload/"
-          ditto -c -k --sequesterRsrc --keepParent "$EXPORT_PATH/Payload" "$RUNNER_TEMP/OrangeCloud-unsigned.ipa"
+          mkdir -p "$RUNNER_TEMP/export/Payload"
+          cp -R "$app_path" "$RUNNER_TEMP/export/Payload/"
+          ditto -c -k --sequesterRsrc --keepParent "$RUNNER_TEMP/export/Payload" "$RUNNER_TEMP/OrangeCloud-unsigned.ipa"
 
       - name: Upload unsigned IPA
         uses: actions/upload-artifact@v4
