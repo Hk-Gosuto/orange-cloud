@@ -304,7 +304,7 @@ struct ZoneDetailView: View {
                                 canEdit: canEditBots,
                                 isLoaded: true,
                                 deniedScope: "bot-management.write",
-                                requestToggle: { on in
+                                requestToggle: { (on: Bool) in
                                     Task { await actionsViewModel.setCrawlerProtection(on) }
                                 }
                             )
@@ -319,7 +319,7 @@ struct ZoneDetailView: View {
                                 canEdit: canEditBots,
                                 isLoaded: true,
                                 deniedScope: "bot-management.write",
-                                requestToggle: { on in
+                                requestToggle: { (on: Bool) in
                                     Task { await actionsViewModel.setContentBotsProtection(on) }
                                 }
                             )
@@ -336,7 +336,7 @@ struct ZoneDetailView: View {
                                     canEdit: canEditBots,
                                     isLoaded: true,
                                     deniedScope: "bot-management.write",
-                                    requestToggle: { on in
+                                    requestToggle: { (on: Bool) in
                                         Task { await actionsViewModel.setBotPreferenceSync(on) }
                                     }
                                 )
@@ -351,7 +351,7 @@ struct ZoneDetailView: View {
                                     canEdit: canEditBots,
                                     isLoaded: true,
                                     deniedScope: "bot-management.write",
-                                    requestToggle: { on in
+                                    requestToggle: { (on: Bool) in
                                         Task { await actionsViewModel.setManagedRobotsTxt(on) }
                                     }
                                 )
@@ -367,7 +367,7 @@ struct ZoneDetailView: View {
                                 canEdit: canEditBots,
                                 isLoaded: true,
                                 deniedScope: "bot-management.write",
-                                requestToggle: { on in
+                                requestToggle: { (on: Bool) in
                                     Task { await actionsViewModel.setRobotsLicense(on) }
                                 }
                             )
@@ -384,7 +384,7 @@ struct ZoneDetailView: View {
                                 canEdit: canEditSettings,
                                 isLoaded: true,
                                 deniedScope: "zone-settings.write",
-                                requestToggle: { on in
+                                requestToggle: { (on: Bool) in
                                     Task { await actionsViewModel.setAITrainingRedirect(on) }
                                 }
                             )
@@ -401,7 +401,7 @@ struct ZoneDetailView: View {
                                 canEdit: canEditSettings,
                                 isLoaded: true,
                                 deniedScope: "zone-settings.write",
-                                requestToggle: { on in
+                                requestToggle: { (on: Bool) in
                                     Task { await actionsViewModel.setMarkdownForAgents(on) }
                                 }
                             )
@@ -420,7 +420,7 @@ struct ZoneDetailView: View {
                         canEdit: canEditSettings,
                         isLoaded: actionsViewModel.settingsLoaded,
                         deniedScope: canReadSettings ? "zone-settings.write" : "zone-settings.read",
-                        requestToggle: { on in pendingAction = .underAttack(on) }
+                        requestToggle: { (on: Bool) in pendingAction = .underAttack(on) }
                     )
 
                     precursorRow
@@ -435,7 +435,7 @@ struct ZoneDetailView: View {
                         canEdit: canEditSettings,
                         isLoaded: actionsViewModel.settingsLoaded,
                         deniedScope: canReadSettings ? "zone-settings.write" : "zone-settings.read",
-                        requestToggle: { on in pendingAction = .devMode(on) }
+                        requestToggle: { (on: Bool) in pendingAction = .devMode(on) }
                     )
 
                     // 暂停态一直可读（zone.read 是登录基础权限），故 isLoaded 恒 true：
@@ -450,7 +450,7 @@ struct ZoneDetailView: View {
                         canEdit: canEditZone,
                         isLoaded: true,
                         deniedScope: "zone.write",
-                        requestToggle: { on in pendingAction = .pause(on) }
+                        requestToggle: { (on: Bool) in pendingAction = .pause(on) }
                     )
 
                     Button {
