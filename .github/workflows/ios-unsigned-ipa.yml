@@ -33,7 +33,6 @@ jobs:
           -project "$PROJECT"
           -scheme "$SCHEME"
           -configuration Release
-          -sdk iphoneos
           -archivePath "$RUNNER_TEMP/OrangeCloud.xcarchive"
           -destination 'generic/platform=iOS'
           -derivedDataPath "$RUNNER_TEMP/DerivedData"
